@@ -2,7 +2,7 @@
   <!-- 此处有且只有一个根节点 -->
    <div class="container">
     <header class="mui-bar mui-bar-nav">
-			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<a v-if="isShow" @click="goback" class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">VueCMS</h1>
 		</header>
 		<nav class="mui-bar mui-bar-tab">
@@ -32,6 +32,36 @@
 
 <script>
     export default {
+			data(){
+				return{
+					isShow: false
+				}
+			},
+			methods: {
+				goback() {
+					this.$router.back();
+				},
+				judgeBack(path) {
+					let arr = ['/home','/member','/shopcar','/search'];
+					if(arr.indexOf(path) == -1) {
+						//不存在
+						this.isShow = true;
+					} else {
+						this.isShow = false;
+					}
+				}
+			},
+
+			//当刷新页面的时候，因为路由地址没有发生变化，没有执行watch，所以要在组件创建完毕后，判断是否显示后退按钮
+			created() {
+				this.judgeBack(this.$route.path);
+			},
+
+			watch: {
+				'$route': function (newValue) {
+					this.judgeBack(newValue.path);
+				}
+			}
     }
 </script>
 

@@ -7,9 +7,9 @@
 
         <ul class="mui-table-view mui-grid-view mui-grid-9">
             <li v-for="(item,index) in images" :key="index" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-                <a href="#">
-                   <img :src="item.src" alt="">
-                </a>
+               
+                   <img @click="$preview.open(index, images)" class="preview-img" :src="item.src" alt="">
+              
             </li>
            
         </ul> 
@@ -24,9 +24,14 @@
 </template>
 
 <script>
+import Vue from 'vue';
+//导入轮播组件
+import VuePreview from 'vue-preview'
+Vue.use(VuePreview)
 
 //导入评论组件
 import comment from '../../commons/comment.vue';
+
 
 export default {
   data() {
@@ -70,6 +75,11 @@ export default {
               .then((response) => {
                   if(response.status === 200 && response.data.status === 0) {
                       this.images = response.data.message;
+
+                      this.images.forEach(item => {
+                          item.w = 600;
+                          item.h = 400;
+                      });
                   }else{
                       console.log('服务器内部错误');
                   }

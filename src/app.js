@@ -13,6 +13,7 @@ import app from './app.vue';
 import router from './config/router';
 
 
+
 //把路由挂载到vue实例上
 let vm = new Vue({
     el:'#app',
