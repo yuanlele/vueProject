@@ -22,7 +22,7 @@ import swipe from '../commons/swipe.vue';
         data() {
             return {
 				menus:[],
-				img_url:'getlunbo'
+				img_url:"getlunbo"
 			};
 		},
 		created(){
